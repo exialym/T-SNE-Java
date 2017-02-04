@@ -28,6 +28,8 @@ public class TSneDemo {
 	static double perplexity = 20.0;
 	private static int initial_dims = 50;
 
+    private static String path = "/Users/exialym/Desktop/Git/T-SNE-Java-me/tsne-demos/src/main/resources/datasets/";
+
 	public static void saveFile(File file, String text) {
 		saveFile(file,text,false);
 	}
@@ -43,7 +45,7 @@ public class TSneDemo {
     }
 	
 	public static void pca_iris() {
-    	double [][] X = MatrixUtils.simpleRead2DMatrix(new File("src/main/resources/datasets/iris_X.txt"), ",");
+    	double [][] X = MatrixUtils.simpleRead2DMatrix(new File(path + "iris_X.txt"), ",");
     	System.out.println("Input is = " + X.length + " x " + X[0].length + " => \n" + MatrixOps.doubleArrayToPrintString(X));
         PrincipalComponentAnalysis pca = new PrincipalComponentAnalysis();
     	double [][] Y = pca.pca(X,2);
@@ -52,8 +54,8 @@ public class TSneDemo {
     }
 
 	public static void pca_mnist(int nistSize) {
-		double [][] X = MatrixUtils.simpleRead2DMatrix(new File("src/main/resources/datasets/mnist" + nistSize + "_X.txt"));
-    	String [] labels = MatrixUtils.simpleReadLines(new File("src/main/resources/datasets/mnist2500_labels.txt"));
+		double [][] X = MatrixUtils.simpleRead2DMatrix(new File(path + "mnist" + nistSize + "_X.txt"));
+    	String [] labels = MatrixUtils.simpleReadLines(new File(path + "mnist2500_labels.txt"));
     	for (int i = 0; i < labels.length; i++) {
 			labels[i] = labels[i].trim().substring(0, 1);
 		}
@@ -73,7 +75,7 @@ public class TSneDemo {
 
 	
     public static void tsne_iris() {
-    	double [][] X = MatrixUtils.simpleRead2DMatrix(new File("src/main/resources/datasets/iris_X.txt"), ",");
+    	double [][] X = MatrixUtils.simpleRead2DMatrix(new File(path + "iris_X.txt"), ",");
         System.out.println(MatrixOps.doubleArrayToPrintString(X, ", ", 50,10));
         TSne tsne = new SimpleTSne();
 		double [][] Y = tsne.tsne(X, 2, initial_dims, perplexity);        
@@ -219,8 +221,8 @@ public class TSneDemo {
 
     
     public static void run_tsne_mnist(int nistSize, TSne tsne) {
-        double [][] X = MatrixUtils.simpleRead2DMatrix(new File("src/main/resources/datasets/mnist" + nistSize + "_X.txt"));
-    	String [] labels = MatrixUtils.simpleReadLines(new File("src/main/resources/datasets/mnist2500_labels.txt"));
+        double [][] X = MatrixUtils.simpleRead2DMatrix(new File(path + "mnist" + nistSize + "_X.txt"));
+    	String [] labels = MatrixUtils.simpleReadLines(new File(path + "mnist2500_labels.txt"));
     	for (int i = 0; i < labels.length; i++) {
 			labels[i] = labels[i].trim().substring(0, 1);
 		}
@@ -245,7 +247,7 @@ public class TSneDemo {
     
     public static void tsne_mnist_icons(int nistSize) {
         System.out.println("Running example on " + nistSize + " MNIST digits...");
-        double [][] X = MatrixUtils.simpleRead2DMatrix(new File("src/main/resources/datasets/mnist" + nistSize + "_X.txt"));
+        double [][] X = MatrixUtils.simpleRead2DMatrix(new File(path + "mnist" + nistSize + "_X.txt"));
     	String [] imgfiles = new String[nistSize];
     	for (int i = 0; i < imgfiles.length; i++) {
 			imgfiles[i] = "src/main/resources/nistimgs/img" + i + ".png";
@@ -268,30 +270,30 @@ public class TSneDemo {
     
     public static void main(String [] args) {
         System.out.println("TSneDemo: Runs t-SNE on various dataset.");
-        if(args.length<1||args.length>2) {
-        	System.out.println("usage: For the data format TSneDemo accepts, look at the file 'src/main/resources/datasets/mnist2500_X.txt' file and accompaning label file 'src/main/resources/datasets/mnist2500_labels.txt'.");
-        	System.out.println("       The label file must have as meny rows as the input matrix");
-        	System.out.println("usage: Example using the data and label file in: tsne-demos/src/main/resources/datasets/");
-        	System.out.println("usage: java -cp target/tsne-demos-X.X.X.jar com.jujutsu.tsne.demos.TSneDemo src/main/resources/datasets/mnist2500_X.txt src/main/resources/datasets/mnist2500_labels.txt");
-        	System.out.println("usage: Example using only data file in: tsne-demos/src/main/resources/datasets/");
-        	System.out.println("usage: java -cp target/tsne-demos-X.X.X.jar com.jujutsu.tsne.demos.TSneDemo src/main/resources/datasets/mnist2500_X.txt");
-        	System.exit(0);
-        }
-        //pca_iris();
-        //pca_mnist(1000);
-        //tsne_iris();
-        //tsne_mnist(250);
-        //tsne_mnist_icons(500);
-        //tsne_mnist(500);
-        //tsne_mnist(1000);
-        //tsne_mnist(1000);
-        //fast_tsne_mnist(2500);
-        //pca_no_labels(args[0]);
-        //pca_no_labels(args[0]);
-        if(args.length==1)
-        	fast_tsne_no_labels(args[0]);
-        else
-        	fast_tsne(args[0], args[1]);
+//        if(args.length<1||args.length>2) {
+//        	System.out.println("usage: For the data format TSneDemo accepts, look at the file 'src/main/resources/datasets/mnist2500_X.txt' file and accompaning label file 'src/main/resources/datasets/mnist2500_labels.txt'.");
+//        	System.out.println("       The label file must have as meny rows as the input matrix");
+//        	System.out.println("usage: Example using the data and label file in: tsne-demos/src/main/resources/datasets/");
+//        	System.out.println("usage: java -cp target/tsne-demos-X.X.X.jar com.jujutsu.tsne.demos.TSneDemo src/main/resources/datasets/mnist2500_X.txt src/main/resources/datasets/mnist2500_labels.txt");
+//        	System.out.println("usage: Example using only data file in: tsne-demos/src/main/resources/datasets/");
+//        	System.out.println("usage: java -cp target/tsne-demos-X.X.X.jar com.jujutsu.tsne.demos.TSneDemo src/main/resources/datasets/mnist2500_X.txt");
+//        	System.exit(0);
+//        }
+        pca_iris();
+        pca_mnist(1000);
+        tsne_iris();
+        tsne_mnist(250);
+        tsne_mnist_icons(500);
+        tsne_mnist(500);
+        tsne_mnist(1000);
+        tsne_mnist(1000);
+        fast_tsne_mnist(2500);
+//        pca_no_labels(args[0]);
+//        pca_no_labels(args[0]);
+//        if(args.length==1)
+//        	fast_tsne_no_labels(args[0]);
+//        else
+//        	fast_tsne(args[0], args[1]);
     }
 
 }
